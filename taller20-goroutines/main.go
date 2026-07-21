@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
-	fmt.Print("Hola GoRoutines")
+	ShowGoroutines(1)
+}
+
+func ShowGoroutines(id int) {
+	fmt.Printf("Goroutines #%d\n", id)
 }
