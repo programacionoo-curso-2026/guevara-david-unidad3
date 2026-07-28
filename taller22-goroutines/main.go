@@ -18,6 +18,8 @@ func main() {
 
 	updateOrderStatuses(orders)
 
+	reportOrderStatus(orders)
+
 	fmt.Printf("Numero de Orderenes %d\n", len(orders))
 	fmt.Print("Todas las operaciones completadas. Finalizando\n")
 }
@@ -47,5 +49,17 @@ func processOrders(orders []*Order) {
 		delay := rand.Intn(500)
 		time.Sleep(time.Duration(delay) * time.Millisecond)
 		fmt.Printf("Procesando orden %d en %dms\n", order.ID, delay)
+	}
+}
+
+func reportOrderStatus(orders []*Order) {
+	for i := 0; i < 3; i++ {
+		time.Sleep(1 * time.Second)
+		fmt.Printf("\n--- Reporte Estado de las Ordenes ---\n")
+		for _, order := range orders {
+			fmt.Printf("Orden %d %s\n",
+				order.ID, order.Status)
+		}
+		fmt.Printf("---------------------------------------\n")
 	}
 }
