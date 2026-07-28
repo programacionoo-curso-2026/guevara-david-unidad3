@@ -16,8 +16,20 @@ func main() {
 
 	processOrders(orders)
 
+	updateOrderStatuses(orders)
+
 	fmt.Printf("Numero de Orderenes %d\n", len(orders))
 	fmt.Print("Todas las operaciones completadas. Finalizando\n")
+}
+
+func updateOrderStatuses(orders []*Order) {
+	for _, order := range orders {
+		time.Sleep(time.Duration(rand.Intn(500)) * time.Millisecond)
+		status := []string{"Procesando", "Despachando", "Entregando"}[rand.Intn(3)]
+		order.Status = status
+		fmt.Printf("Actualizando la orden %d con estado %s\n", order.ID, status)
+
+	}
 }
 
 func generateOrders(count int) []*Order {
