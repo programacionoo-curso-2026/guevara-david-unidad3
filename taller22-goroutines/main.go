@@ -19,11 +19,19 @@ func main() {
 
 	orders := generateOrders(20)
 
-	go processOrders(orders)
+	go func() {
+		defer wg.Done()
+		processOrders(orders)
+	}()
 
-	go updateOrderStatuses(orders)
+	go func() {
+		defer wg.Done()
+		updateOrderStatuses(orders)
+	}()
 
-	go reportOrderStatus(orders)
+	go func() {
+		reportOrderStatus(orders)
+	}()
 
 	wg.Wait()
 
