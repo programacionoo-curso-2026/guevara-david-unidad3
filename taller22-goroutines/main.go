@@ -75,6 +75,6 @@ func reportOrderStatus(orders []*Order) {
 			fmt.Printf("Orden %d %s  \n  ",
 				order.ID, order.Status)
 		}
-		fmt.Printf("---------------------------------------  \n  ")
+		fmt.Printf("---------------------------------------  \n")
 	}
 }
