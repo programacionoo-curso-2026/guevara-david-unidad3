@@ -1,11 +1,11 @@
 package main
 
 import (
-	/*"fmt"*/
-	/*"math/rand"*/
 	"fmt"
+	"math/rand"
 	"sync"
-	/*"time"*/)
+	"time"
+)
 
 type Order struct {
 	ID     int
@@ -32,6 +32,24 @@ func main() {
 	}
 	wg.Wait()
 	fmt.Print("Todas las operaciones completadas. Exiting\n")
+	fmt.Printf("Total Actualizaciones %d\n", totalUpdates)
+
+}
+
+func updateOrderStatus(order *Order) {
+	order.mu.Lock()
+	time.Sleep(time.Duration(rand.Intn(500)) * time.Microsecond)
+	status := []string{"Procesando", "Despachando", "Entregando"}[rand.Intn(3)]
+	order.Status = status
+	fmt.Printf("Actualizando orden %d con estado: %s\n", order.ID, status)
+	order.mu.Unlock()
+
+	updateMutex.Lock()
+	defer updateMutex.Unlock()
+
+	currentUpdates := totalUpdates
+	time.Sleep(5 * time.Millisecond)
+	totalUpdates = currentUpdates + 1
 
 }
 
